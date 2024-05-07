@@ -18,21 +18,36 @@ export class EmpleadosController {
     }
     verEmpleado = async (req, res) => {
         try {
-            let dato = req.body
+            let filtro = req.query.filtro
+            let busqueda = req.query.busqueda
+            let datos = {
+                filtro, busqueda
+            }
+            const dato = {};
+            dato[datos.filtro] = datos.busqueda;
             if (Object.keys(dato).length === 0) {
                 const respuesta = await empleado.buscarEmpleados()
-                res.status(200).send(respuesta)
+                res.render('main', {
+                    respuesta
+                })
+                // res.status(200).send(respuesta)
             } else {
                 if (dato.id_empleado) { //No se puede preguntar directamente si dato tiene como atributo id_empleado porque devolvería "no se puede leer id_empleado de undefined"
                     const respuesta = await empleado.buscarEmpleadoPorId(dato)
-                    if(respuesta){
-                        res.status(200).send(respuesta)
-                    }else{
+                    if (respuesta) {
+                        res.render('main', {
+                            respuesta
+                        })
+                        // res.status(200).send(respuesta)
+                    } else {
                         res.status(404).send(`Empleado con el ID: ${dato.id_empleado} no existe.`)
                     }
                 } else {
                     const respuesta = await empleado.buscarEmpleados(dato)
-                    res.status(200).send(respuesta)
+                    res.render('main', {
+                        respuesta
+                    })
+                    // res.status(200).send(respuesta)
                 }
             }
         } catch (error) {

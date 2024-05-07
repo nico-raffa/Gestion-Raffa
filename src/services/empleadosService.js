@@ -39,6 +39,7 @@ export class EmpleadosService {
     try {
       if (!dato) {
         const todosLosEmpleados = await Empleado.findAll()
+
         return todosLosEmpleados
       }
       const condiciones = {}
@@ -61,12 +62,11 @@ export class EmpleadosService {
               : dato[atributo]
         }
       })
-
-      const empleadoEncontrado = await Empleado.findAll({
+      const empleadosEncontrados = await Empleado.findAll({
         where: condiciones
       })
-
-      return empleadoEncontrado
+      // console.log(empleadosEncontrados)
+      return empleadosEncontrados
     } catch (error) {
       return error
     }

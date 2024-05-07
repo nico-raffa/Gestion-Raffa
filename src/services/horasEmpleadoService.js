@@ -4,7 +4,7 @@ import { transformarFecha } from "../utils/transformarFecha.js";
 export class HorasEmpleadoService {
     constructor() {
         this.existe = async function (datos) {
-            let existente = await empleado.buscarUnEmpleado({ id_empleado: datos.id_empleado })
+            let existente = await empleado.buscarEmpleadoPorId({ id_empleado: datos.id_empleado })
             return existente
         }
     }

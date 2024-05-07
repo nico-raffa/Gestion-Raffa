@@ -7,6 +7,7 @@ export const routerEmpleados = new Router()
 export const routerCargarHoras = new Router()
 //          ROUTER PARA EMPLEADO
 routerEmpleados.get("/", empleadosController.verEmpleado)
+routerEmpleados.get("/:dato", empleadosController.verEmpleado)
 routerEmpleados.post("/", empleadosController.crear)
 routerEmpleados.post("/modificarEmpleado", empleadosController.modificarEmpleado)
 routerEmpleados.delete("/", empleadosController.eliminarEmpleado)

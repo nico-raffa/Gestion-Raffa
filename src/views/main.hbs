@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados</title>
+    <!-- Agregar el enlace al archivo CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Agregar el enlace al archivo CSS personalizado -->
+    <link rel="stylesheet" href="/styles/styles.css">    
+</head>
+
+<body>
+    <div class="container">
+        <h1>Gestión de Empleados</h1>
+
+        <!-- Formulario para crear un nuevo empleado -->
+        {{!-- <form action="/crear-empleado" method="POST">
+            <h2>Crear Nuevo Empleado</h2>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br>
+            <!-- Agrega más campos según sea necesario -->
+            <button type="submit" class="btn btn-primary">Crear Empleado</button>
+        </form> --}}
+
+        <!-- Formulario para buscar un empleado -->
+        <form action="/empleados/" method="GET" class="d-flex flex-column align-items-start">
+    <h2>Buscar Empleado</h2>
+    <div class="d-flex align-items-center mb-2">
+        <label for="filtro" class="me-2">Filtrar por:</label>
+        <select id="filtro" name="filtro" class="form-select-sm me-2">
+            <option value="">-- SELECIONAR --</option>
+            <option value="id_empleado">ID</option>
+            <option value="nombre">Nombre</option>
+            <option value="apellido">Apellido</option>
+            <option value="cargo">Cargo</option>
+            <!-- Agrega más opciones de filtro según sea necesario -->
+        </select>
+        <input type="text" id="busqueda" name="busqueda" class="me-2">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+</form>
+
+
+        <!-- Lista de empleados -->
+        <h2>Lista de Empleados</h2>
+        <table class="paleBlueRows">
+            <thead>
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>CARGO</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each respuesta}}
+                {{#with this}}
+                <tr>
+                    <td>{{nombre}}</td>
+                    <td>{{apellido}}</td>
+                    <td>{{cargo}}</td>
+                </tr>
+                {{/with}}
+                {{/each}}
+            </tbody>
+            </tr>
+        </table>
+        
+
+        {{!-- <!-- Formulario para modificar un empleado -->
+        <form action="/modificar-empleado" method="POST">
+            <h2>Modificar Empleado</h2>
+            <label for="id_modificar">ID del Empleado a Modificar:</label>
+            <input type="text" id="id_modificar" name="id_modificar" required><br>
+            <!-- Agrega campos para modificar según sea necesario -->
+            <button type="submit" class="btn btn-primary">Modificar Empleado</button>
+        </form>
+
+        <!-- Formulario para eliminar un empleado -->
+        <form action="/eliminar-empleado" method="POST">
+            <h2>Eliminar Empleado</h2>
+            <label for="id_eliminar">ID del Empleado a Eliminar:</label>
+            <input type="text" id="id_eliminar" name="id_eliminar" required><br>
+            <button type="submit" class="btn btn-danger">Eliminar Empleado</button>
+        </form> --}}
+    </div>
+</body>
+
+</html>
