@@ -25,7 +25,7 @@ export class EmpleadosController {
             dato[datos.filtro] = datos.busqueda
             if (!filtro) {
                 const respuesta = await empleado.buscarEmpleados()
-                res.render('main', {
+                res.render('verEmpleados', {
                     respuesta
                 })
                 // res.status(200).send(respuesta)
@@ -33,7 +33,7 @@ export class EmpleadosController {
                 if (dato.id_empleado) { //No se puede preguntar directamente si dato tiene como atributo id_empleado porque devolvería "no se puede leer id_empleado de undefined"
                     const respuesta = await empleado.buscarEmpleadoPorId(dato)
                     if (respuesta) {
-                        res.render('main', {
+                        res.render('verEmpleados', {
                             respuesta
                         })
                         // res.status(200).send(respuesta)
@@ -41,9 +41,10 @@ export class EmpleadosController {
                         res.status(404).send(`Empleado con el ID: ${dato.id_empleado} no existe.`)
                     }
                 } else {
-                    const respuesta = await empleado.buscarEmpleados(dato)
-                    res.render('main', {
-                        respuesta
+                    const resultado = await empleado.buscarEmpleados(dato)
+                    console.log(resultado)
+                    res.render('tarjetaEmpleado', {
+                        resultado
                     })
                     // res.status(200).send(respuesta)
                 }

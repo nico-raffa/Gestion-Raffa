@@ -6,10 +6,11 @@ const empleadosController = new EmpleadosController()
 export const routerEmpleados = new Router()
 export const routerCargarHoras = new Router()
 //          ROUTER PARA EMPLEADO
-routerEmpleados.get("/", empleadosController.verEmpleado)
+routerEmpleados.get("/", (req,res)=>res.render('main',{}))
+routerEmpleados.get("/verEmpleados", empleadosController.verEmpleado)
 // routerEmpleados.get("/:dato", empleadosController.verEmpleado)
 routerEmpleados.post("/crearEmpleado", empleadosController.crear)
-routerEmpleados.get("/crearEmpleado", (req,res)=> res.render('modificar',{}))
+routerEmpleados.get("/crearEmpleado", (req,res)=> res.render('ingresarEmpleado',{}))
 routerEmpleados.post("/modificarEmpleado", empleadosController.modificarEmpleado)
 routerEmpleados.delete("/", empleadosController.eliminarEmpleado)
 

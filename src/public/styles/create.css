@@ -37,3 +37,17 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+.btn-volver {
+    width: 15%;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 10px;
+}
+.btn-volver:hover {
+    background-color: #e0e0e0;
+}

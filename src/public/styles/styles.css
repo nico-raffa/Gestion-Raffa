@@ -41,3 +41,18 @@
         table.paleBlueRows tfoot td {
             font-size: 14px;
         }
+
+        .btn-volver {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn-volver:hover {
+            background-color: #e0e0e0;
+        }
