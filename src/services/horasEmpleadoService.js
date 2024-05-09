@@ -1,6 +1,6 @@
 import { HorasEmpleado } from "../models/horasEmpleadoModel.js";
 import { empleado } from "../controllers/empleadosController.js";
-import { transformarFecha } from "../utils/transformarFecha.js";
+import { transformarFecha } from "../utils/fecha.js";
 export class HorasEmpleadoService {
     constructor() {
         this.existe = async function (datos) {

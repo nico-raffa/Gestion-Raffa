@@ -7,6 +7,8 @@ import './models/associations.js'
 import Handlebars from 'handlebars'
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access'
 import path from 'path'
+import handlebarsDateformat from 'handlebars-dateformat'
+
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -20,7 +22,10 @@ app.engine('hbs', engine({
     extname: 'hbs',
     defaultLayout: 'index.hbs',
     layoutsDir: __dirname + '/views/layouts',
-    handlebars: allowInsecurePrototypeAccess(Handlebars)
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers:{
+        dateFormat: handlebarsDateformat
+    }
 }))
 app.set('views', './src/views')
 app.set('view engine', 'hbs')

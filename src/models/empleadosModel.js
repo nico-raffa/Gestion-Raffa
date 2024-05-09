@@ -9,7 +9,7 @@ export class Empleado extends Model { }
 Empleado.init(
   {
     id_empleado: {
-      type: DataTypes.INTEGER(),
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
@@ -28,16 +28,16 @@ Empleado.init(
       },
     },
     nacimiento: {
-      type: DataTypes.DATE()
+      type: DataTypes.DATEONLY
     },
     fecha_inicio: {
-      type: DataTypes.DATE()
+      type: DataTypes.DATEONLY,
     },
     fecha_fin: {
-      type: DataTypes.DATE()
+      type: DataTypes.DATEONLY
     },
     cargo: {
-      type: DataTypes.CHAR(50),
+      type: DataTypes.STRING,
       set(value) {
         this.setDataValue('cargo', value.charAt(0).toUpperCase() + value.slice(1));
       },

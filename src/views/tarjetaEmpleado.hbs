@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/tarjeta.css">
+</head>
+
+<body>
+    <div class="card">
+        <h2>Detalles del Empleado</h2>
+        <p><strong>Nombre:</strong> {{resultado.nombre}}</p>
+        <p><strong>Apellido:</strong> {{resultado.apellido}}</p>
+        <p><strong>Fecha de Nacimiento:</strong> {{#if resultado.nacimiento}}{{dateFormat resultado.nacimiento "DD/MM/YYYY"}}{{/if}}</p>
+        <p><strong>Fecha de Inicio:</strong> {{dateFormat resultado.fecha_inicio "DD/MM/YYYY"}}</p>
+        <p><strong>Fecha de Fin:</strong> {{resultado.fecha_fin}}</p>
+        <p><strong>Cargo:</strong> {{resultado.cargo}}</p>
+        <p><strong>Precio por Hora:</strong> {{resultado.precio_por_hora}}</p>
+        <p><strong>ID del Empleado:</strong> {{resultado.id_empleado}}</p>
+        <a href="/empleados" class="btn-volver">Volver</a>
+    </div>
+</body>
+
+</html>

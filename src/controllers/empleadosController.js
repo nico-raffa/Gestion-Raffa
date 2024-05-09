@@ -4,16 +4,14 @@ export class EmpleadosController {
     crear = async (req, res) => {
         try {
             const resultado = await empleado.ingresarEmpleado(req.body)
-            if (!resultado) {
-                res.status(401).json({
-                    mensaje: `Falta(n) el/los siguiente(s) dato(s): ${resultado}`
-                })
-                return
-            } else {
-                res.status(200).send(resultado)
-            }
-        } catch (error) {
-            console.log(error)
+            if (resultado.success === false) throw new Error(resultado.error)
+
+            res.render('tarjetaEmpleado', {
+                resultado
+            })
+        }
+        catch (error) {
+            res.status(400).json({ error: error.message })
         }
     }
     verEmpleado = async (req, res) => {
@@ -23,9 +21,9 @@ export class EmpleadosController {
             let datos = {
                 filtro, busqueda
             }
-            const dato = {};
-            dato[datos.filtro] = datos.busqueda;
-            if (Object.keys(dato).length === 0) {
+            const dato = {}
+            dato[datos.filtro] = datos.busqueda
+            if (!filtro) {
                 const respuesta = await empleado.buscarEmpleados()
                 res.render('main', {
                     respuesta

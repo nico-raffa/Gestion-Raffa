@@ -8,18 +8,17 @@ export class EmpleadosService {
       const datosObligatorios = ["nombre", "apellido", "id_empleado", "precio_por_hora"]
         .filter(atributo => !empleado[atributo])
       if (datosObligatorios.length > 0) {
-        return datosObligatorios.join(", "), false
+        throw new Error ('Faltan datos obligatorios: ' + datosObligatorios.join(", "))
       }
       const exist = await this.buscarEmpleadoPorId(empleado)
-      if (!exist) {
-        await Empleado.create(empleado)
-        return `El empleado ${empleado.nombre} ha sido ingresado`
-      } else {
-        return `El empleado ${empleado.nombre} ya existe`
-      }
+      if (exist) { throw new Error('USER_EXIST') }
+
+      empleado.fecha_inicio = new Date()
+      const empleadoNuevo = await Empleado.create(empleado)
+      return empleadoNuevo
+
     } catch (error) {
-      console.log(error)
-      return "Ha ocurrido un error al ingresar el empleado"
+      return { success: false, error: error.message }
     }
   }
   async buscarEmpleadoPorId(dato) {

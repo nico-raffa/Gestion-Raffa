@@ -1,0 +1,27 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card h2 {
+    margin-top: 0;
+}
+.card p {
+    margin: 5px 0;
+}
+.btn-volver {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 10px;
+}
+.btn-volver:hover {
+    background-color: #e0e0e0;
+}

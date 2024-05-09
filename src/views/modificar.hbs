@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{!--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+
+    <link rel="stylesheet" href="/styles/mod.css">
+
+</head>
+
+<body>
+    <form action="/empleados/crearEmpleado" method="POST">
+        <h2>Ingresar Empleado</h2>
+        <label for="nombre">Nombre: <span style="color: red;">*</span></label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="apellido">Apellido: <span style="color: red;">*</span></label>
+        <input type="text" id="apellido" name="apellido" required>
+        <label for="precio_por_hora">Precio por Hora: <span style="color: red;">*</span></label>
+        <input type="text" id="precio_por_hora" name="precio_por_hora" required>
+        <label for="id_empleado">ID del Empleado: <span style="color: red;">*</span></label>
+        <input type="text" id="id_empleado" name="id_empleado" required>
+        <label for="nacimiento">Fecha de Nacimiento:</label>
+        <input type="text" id="nacimiento" name="nacimiento">
+        <label for="fecha_inicio">Fecha de Inicio: </label>
+        <input type="text" id="fecha_inicio" name="fecha_inicio">
+        <label for="fecha_fin">Fecha de Fin: </label>
+        <input type="text" id="fecha_fin" name="fecha_fin">
+        <label for="cargo">Cargo: </label>
+        <input type="text" id="cargo" name="cargo">
+        <button type="submit" class="btn btn-primary">Ingresar Empleado</button>
+    </form>
+
+</body>
+
+</html>
+<!-- Formulario para ingresar un empleado -->
