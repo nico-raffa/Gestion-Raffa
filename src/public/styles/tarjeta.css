@@ -25,3 +25,6 @@
 .btn-volver:hover {
     background-color: #e0e0e0;
 }
+input[readonly] {
+    background-color: rgba(0, 0, 0, 0.1); /* Color de fondo oscurecido */
+}

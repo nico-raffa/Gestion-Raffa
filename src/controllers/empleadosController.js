@@ -5,7 +5,6 @@ export class EmpleadosController {
         try {
             const resultado = await empleado.ingresarEmpleado(req.body)
             if (resultado.success === false) throw new Error(resultado.error)
-
             res.render('tarjetaEmpleado', {
                 resultado
             })
@@ -30,42 +29,45 @@ export class EmpleadosController {
                 })
                 // res.status(200).send(respuesta)
             } else {
-                if (dato.id_empleado) { //No se puede preguntar directamente si dato tiene como atributo id_empleado porque devolvería "no se puede leer id_empleado de undefined"
-                    const respuesta = await empleado.buscarEmpleadoPorId(dato)
-                    if (respuesta) {
-                        res.render('verEmpleados', {
-                            respuesta
-                        })
-                        // res.status(200).send(respuesta)
-                    } else {
-                        res.status(404).send(`Empleado con el ID: ${dato.id_empleado} no existe.`)
-                    }
-                } else {
-                    const resultado = await empleado.buscarEmpleados(dato)
-                    console.log(resultado)
-                    res.render('tarjetaEmpleado', {
-                        resultado
+                const respuesta = await empleado.buscarEmpleados(dato)
+                if (respuesta.length >= 2) {
+                    res.render('verEmpleados', {
+                        respuesta
                     })
                     // res.status(200).send(respuesta)
+                } else {
+                    const resultado = respuesta[0]
+                    if (respuesta.length === 0) {
+                        res.status(404).send(`Empleado con el ${filtro}: ${busqueda} no existe.`)
+                    } else {
+
+                        res.render('tarjetaEmpleado', {
+                            resultado
+                        })
+                    }
                 }
+                // res.status(200).send(respuesta)
+
             }
         } catch (error) {
-            console.log(error)
+            res.status(400).json({ error: error.message })
         }
     }
     modificarEmpleado = async (req, res) => {
         try {
-            const idEmpleado = req.body.id_empleado
+            const idEmpleado = req.params.id
             const datoNuevo = req.body
             const { id_empleado, ...dato } = datoNuevo
-            if (!idEmpleado || Object.keys(dato).length === 0) {
+            if (!idEmpleado || Object.values(dato).every(value => value === '')) //{ //MODIFICAR ESTO PARA QUE LAS FECHAS NO SE ENVÍEN COMO 0000-00-00
                 return res.status(400).send('Ingrese los datos que quiere modificar.')
-            } else {
-                let respuesta = await empleado.modificarEmpleado(idEmpleado, dato)
-                res.send(respuesta)
             }
+            
+            await empleado.modificarEmpleado(idEmpleado, dato)
+
+            res.redirect(`/empleados/verEmpleados?filtro=id_empleado&busqueda=${idEmpleado}`)
+
         } catch (error) {
-            console.log(error)
+            res.status(400).json({ error: error.message })
         }
     }
     eliminarEmpleado = async (req, res) => {

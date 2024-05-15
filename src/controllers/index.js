@@ -11,7 +11,8 @@ routerEmpleados.get("/verEmpleados", empleadosController.verEmpleado)
 // routerEmpleados.get("/:dato", empleadosController.verEmpleado)
 routerEmpleados.post("/crearEmpleado", empleadosController.crear)
 routerEmpleados.get("/crearEmpleado", (req,res)=> res.render('ingresarEmpleado',{}))
-routerEmpleados.post("/modificarEmpleado", empleadosController.modificarEmpleado)
+routerEmpleados.post("/modificarEmpleado/:id", empleadosController.modificarEmpleado)
+routerEmpleados.get("/modificarEmpleado", (req,res)=>res.render('modificar',{}))
 routerEmpleados.delete("/", empleadosController.eliminarEmpleado)
 
 //          ROUTER PARA CARGA DE HORAS DE EMPLEADO

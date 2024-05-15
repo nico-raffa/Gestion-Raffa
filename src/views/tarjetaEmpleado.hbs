@@ -10,16 +10,44 @@
 <body>
     <div class="card">
         <h2>Detalles del Empleado</h2>
-        <p><strong>Nombre:</strong> {{resultado.nombre}}</p>
-        <p><strong>Apellido:</strong> {{resultado.apellido}}</p>
-        <p><strong>Fecha de Nacimiento:</strong> {{#if resultado.nacimiento}}{{dateFormat resultado.nacimiento "DD/MM/YYYY"}}{{/if}}</p>
-        <p><strong>Fecha de Inicio:</strong> {{dateFormat resultado.fecha_inicio "DD/MM/YYYY"}}</p>
-        <p><strong>Fecha de Fin:</strong> {{resultado.fecha_fin}}</p>
-        <p><strong>Cargo:</strong> {{resultado.cargo}}</p>
-        <p><strong>Precio por Hora:</strong> {{resultado.precio_por_hora}}</p>
-        <p><strong>ID del Empleado:</strong> {{resultado.id_empleado}}</p>
-        <a href="/empleados" class="btn-volver">Volver</a>
+        <form action="/empleados/modificarempleado/{{resultado.id_empleado}}" method="POST">
+            <div style="display: flex; align-items: center;">
+                <p><strong>Nombre:</strong> <input type="text" id="nombre" name="nombre" value="{{resultado.nombre}}"
+                        readonly></p>
+                <button type="button" onclick="toggleCampo('nombre')">A</button>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p><strong>Apellido:</strong> <input type="text" id="apellido" name="apellido"
+                        value="{{resultado.apellido}}" readonly></p>
+                <button type="button" onclick="toggleCampo('apellido')">B</button>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p><strong>Cargo:</strong> <input type="text" id="cargo" name="cargo" value="{{resultado.cargo}}"
+                        readonly></p>
+                <button type="button" onclick="toggleCampo('cargo')">B</button>
+            </div>
+           
+            <div style="display: flex; align-items: center;">
+                <p><strong>Nacimiento:</strong> <input type="text" id="nacimiento" name="nacimiento" readonly
+                        value={{#if resultado.nacimiento}}"{{dateFormat resultado.nacimiento "DD/MM/YYYY"}}" {{/if}}></p>
+                <button type="button" onclick="toggleCampo('nacimiento')">B</button>
+            </div>
+            
+            
+            <div style="display: flex; align-items: center;">
+                <p><strong>Fecha fin:</strong> <input type="text" id="fecha_fin" name="fecha_fin" readonly
+                        value={{#if resultado.fecha_fin}}"{{dateFormat resultado.fecha_fin " DD/MM/YYYY"}}"{{/if}}></p>
+                <button type="button" onclick="toggleCampo('fecha_fin')">B</button>
+            </div>
+            
+
+
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="btn-volver">Actualizar</button>
+            <a href="/empleados/verEmpleados" class="btn-volver">Volver</a>
+        </form>
     </div>
+    <script src="/scripts/toggleCampos.js"></script>
 </body>
 
 </html>

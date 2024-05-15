@@ -1,7 +1,7 @@
 <!-- Formulario para buscar un empleado -->
-        <a href="/empleados" class="btn-volver">Volver</a>
+<a href="/empleados" class="btn-volver">Volver</a>
 
-        <form action="/empleados/verEmpleados" method="GET" class="d-flex flex-column align-items-start">
+<form action="/empleados/verEmpleados" method="GET" class="d-flex flex-column align-items-start">
     <h2>Buscar Empleado</h2>
     <div class="d-flex align-items-center mb-2">
         <label for="filtro" class="me-2">Filtrar por:</label>
@@ -19,32 +19,32 @@
 </form>
 
 
-        <!-- Lista de empleados -->
-        <h2>Lista de Empleados</h2>
-        <table class="paleBlueRows">
-            <thead>
-                <tr>
-                    <th>NOMBRE</th>
-                    <th>APELLIDO</th>
-                    <th>CARGO</th>
-                    <th>ID DE EMPLEADO</th>
-                    <th>FECHA DE INICIO</th>
-                    <th>PRECIO POR HORA</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each respuesta}}
-                {{#with this}}
-                <tr>
-                    <td><a href=verEmpleados?filtro=nombre&busqueda={{nombre}}>{{nombre}}</td></a>
-                    <td>{{apellido}}</td>
-                    <td>{{cargo}}</td>
-                    <td>{{id_empleado}}</td>
-                    <td>{{fecha_inicio}}</td>
-                    <td>{{precio_por_hora}}</td>
-                </tr>
-                {{/with}}
-                {{/each}}
-            </tbody>
-            </tr>
-        </table>
+<!-- Lista de empleados -->
+<h2>Lista de Empleados</h2>
+<table class="paleBlueRows">
+    <thead>
+        <tr>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>CARGO</th>
+            <th>ID DE EMPLEADO</th>
+            <th>FECHA DE INICIO</th>
+            <th>PRECIO POR HORA</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each respuesta}}
+        {{#with this}}
+        <tr>
+            <td><a href=verEmpleados?filtro=id_empleado&busqueda={{id_empleado}}>{{nombre}}</td></a>
+            <td>{{apellido}}</td>
+            <td>{{cargo}}</td>
+            <td>{{id_empleado}}</td>
+            <td>{{dateFormat fecha_inicio "DD/MM/YYYY"}}</td>
+            <td>{{precio_por_hora}}</td>
+        </tr>
+        {{/with}}
+        {{/each}}
+    </tbody>
+    </tr>
+</table>

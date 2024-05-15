@@ -28,13 +28,16 @@ Empleado.init(
       },
     },
     nacimiento: {
-      type: DataTypes.DATEONLY
+      type: DataTypes.DATEONLY,
+      defaultValue: null,
     },
     fecha_inicio: {
       type: DataTypes.DATEONLY,
+      defaultValue: null,
     },
     fecha_fin: {
-      type: DataTypes.DATEONLY
+      type: DataTypes.DATEONLY,
+      defaultValue: null,
     },
     cargo: {
       type: DataTypes.STRING,

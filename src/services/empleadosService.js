@@ -1,5 +1,6 @@
 import { sequelize } from '../db.js'
 import { Empleado } from '../models/empleadosModel.js'
+import { transformarFecha } from '../utils/fecha.js'
 
 export class EmpleadosService {
 
@@ -8,11 +9,16 @@ export class EmpleadosService {
       const datosObligatorios = ["nombre", "apellido", "id_empleado", "precio_por_hora"]
         .filter(atributo => !empleado[atributo])
       if (datosObligatorios.length > 0) {
-        throw new Error ('Faltan datos obligatorios: ' + datosObligatorios.join(", "))
+        throw new Error('Faltan datos obligatorios: ' + datosObligatorios.join(", "))
       }
       const exist = await this.buscarEmpleadoPorId(empleado)
       if (exist) { throw new Error('USER_EXIST') }
-
+      if(empleado.nacimiento === ""){
+        empleado.nacimiento = null
+      }
+      if(empleado.fecha_fin === ""){
+        empleado.fecha_fin = null
+      }
       empleado.fecha_inicio = new Date()
       const empleadoNuevo = await Empleado.create(empleado)
       return empleadoNuevo
@@ -73,50 +79,27 @@ export class EmpleadosService {
   async modificarEmpleado(idEmpleado, datoNuevo) {
     try {
       let exist = await this.buscarEmpleadoPorId({ id_empleado: idEmpleado })
-      if (exist) {
-        if (exist.dataValues.id_empleado === parseInt(idEmpleado)) {
-          const empleadoModificado = {}
-          if (Object.keys(datoNuevo).length === 0) {
-            return datoNuevo
-          } else {
-            return datoNuevo
-          }
-          // if (datoNuevo.nombre !== undefined) {
-          //   empleadoModificado.nombre = datoNuevo.nombre
-          // }
-          // if (datoNuevo.apellido !== undefined) {
-          //   empleadoModificado.apellido = datoNuevo.apellido
-          // }
-          // if (datoNuevo.nacimiento !== undefined && !isNaN(datoNuevo.nacimiento)) {
-          //   empleadoModificado.nacimiento = datoNuevo.nacimiento
-          // }
-          // if (datoNuevo.fecha_inicio !== undefined && !isNaN(datoNuevo.fecha_inicio)) {
-          //   empleadoModificado.fecha_inicio = datoNuevo.fecha_inicio
-          // }
-          // if (datoNuevo.fecha_fin !== undefined && !isNaN(datoNuevo.fecha_fin)) {
-          //   empleadoModificado.fecha_fin = datoNuevo.fecha_fin
-          // }
-          // if (datoNuevo.cargo !== undefined) {
-          //   empleadoModificado.cargo = datoNuevo.cargo
-          // }
-          // if (datoNuevo.precio_por_hora !== undefined && !isNaN(datoNuevo.precio_por_hora)) {
-          //   empleadoModificado.precio_por_hora = datoNuevo.precio_por_hora
-          // }
-          // const modificado = await Empleado.update(empleadoModificado, {
-          //   where: {
-          //     id_empleado: idEmpleado,
-          //   }
-          // })
-          // if(modificado){
-          //   return `Empleado ${exist.nombre}, modificado.`
-          // }
-        }
-      } else {
-        return 'Empleado no encontrado'
+      if (!exist) {
+        throw new Error('USER_DOES_NOT_EXIST')
       }
+      if (datoNuevo.nacimiento && datoNuevo.nacimiento !== '') {
+        datoNuevo.nacimiento = transformarFecha(datoNuevo.nacimiento);
+      }
+      if (datoNuevo.fecha_inicio && datoNuevo.fecha_inicio !== '') {
+        datoNuevo.fecha_inicio = transformarFecha(datoNuevo.fecha_inicio);
+      }
+      if (datoNuevo.fecha_fin && datoNuevo.fecha_fin !== '') {
+        datoNuevo.fecha_fin = transformarFecha(datoNuevo.fecha_fin);
+      }
+      await Empleado.update(datoNuevo, {
+        where: {
+          id_empleado: idEmpleado,
+        }
+      })
+      return true
 
     } catch (error) {
-      console.log(error)
+      return { success: false, error: error.message }
     }
   }
   async eliminarEmpleado(idEmpleado) {
