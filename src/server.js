@@ -40,8 +40,9 @@ app.get('*', (req, res) => {
 })
 
 app.post('/webhook', (req, res) => {
+    const body = req.body.ref
     if (req.body.ref === 'refs/heads/master') {
-      exec('/home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
+      exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`)
           return res.sendStatus(500)
@@ -50,5 +51,5 @@ app.post('/webhook', (req, res) => {
         console.error(`stderr: ${stderr}`)
       })
     }
-    res.sendStatus(200)
+    res.sendStatus(200).json(body)
   })
