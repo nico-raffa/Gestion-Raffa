@@ -12,8 +12,8 @@ import handlebarsDateformat from 'handlebars-dateformat'
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.listen(8081, () => console.log('Server abierto en el puerto 8081'))
@@ -43,12 +43,12 @@ app.post('/webhook', (req, res) => {
     if (req.body.ref === 'refs/heads/master') {
       exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
         if (error) {
-          console.error(`exec error: ${error}`);
-          return res.sendStatus(500);
+          console.error(`exec error: ${error}`)
+          return res.sendStatus(500)
         }
-        console.log(`stdout: ${stdout}`);
-        console.error(`stderr: ${stderr}`);
-      });
+        console.log(`stdout: ${stdout}`)
+        console.error(`stderr: ${stderr}`)
+      })
     }
-    res.sendStatus(200);
-  });
+    res.sendStatus(200)
+  })
