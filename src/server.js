@@ -8,7 +8,7 @@ import Handlebars from 'handlebars'
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access'
 import path from 'path'
 import handlebarsDateformat from 'handlebars-dateformat'
-
+import { exec } from 'child_process'
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -40,9 +40,9 @@ app.get('*', (req, res) => {
 })
 
 app.post('/webhook', (req, res) => {
-    const body = req.body.ref
     if (req.body.ref === 'refs/heads/master') {
       exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
+        console.log('hola')
         if (error) {
           console.error(`exec error: ${error}`)
           return res.sendStatus(500)
@@ -51,5 +51,5 @@ app.post('/webhook', (req, res) => {
         console.error(`stderr: ${stderr}`)
       })
     }
-    res.sendStatus(200).json(body,'hola')
+    res.sendStatus(200)
   })
