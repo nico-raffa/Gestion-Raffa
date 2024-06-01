@@ -40,7 +40,7 @@ app.get('*', (req, res) => {
 })
 app.post('/webhook', (req, res) => {
 
-    if (req.body.ref === 'refs/heads/master') {
+    if (req.body.ref === 'refs/heads/main') {
       exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`)
