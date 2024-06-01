@@ -58,7 +58,7 @@ export class EmpleadosController {
             const idEmpleado = req.params.id
             const datoNuevo = req.body
             const { id_empleado, ...dato } = datoNuevo
-            if (!idEmpleado || Object.values(dato).every(value => value === '')) { //<---- MODIFICAR ESTO PARA QUE LAS FECHAS NO SE ENVÍEN COMO 0000-00-00
+            if (!idEmpleado || Object.values(dato).every(value => value === '')) { //<-- MODIFICAR ESTO PARA QUE LAS FECHAS NO SE ENVÍEN COMO 0000-00-00
                 return res.status(400).send('Ingrese los datos que quiere modificar.')
             }
             
