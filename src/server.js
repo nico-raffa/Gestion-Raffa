@@ -49,6 +49,6 @@ app.post('/webhook', (req, res) => {
         console.log(`stdout: ${stdout}`)
         console.error(`stderr: ${stderr}`)
       })
-      res.sendStatus(200)
+      res.sendStatus(404)
     }
   })
