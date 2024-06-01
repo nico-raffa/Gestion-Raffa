@@ -50,7 +50,7 @@ app.post('/webhook', (req, res) => {
         console.log(`stdout: ${stdout}`)
         console.error(`stderr: ${stderr}`)
       })
-      console.log(ejecutado)
+      return ejecutado
     }
     res.sendStatus(200)
   })
