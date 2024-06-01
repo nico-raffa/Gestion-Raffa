@@ -39,18 +39,4 @@ app.get('*', (req, res) => {
     })
 })
 
-app.post('/webhook', (req, res) => {
-    return 'hola'
-    if (req.body.ref === 'refs/heads/master') {
-      const ejecutado = exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`)
-          return res.sendStatus(500)
-        }
-        console.log(`stdout: ${stdout}`)
-        console.error(`stderr: ${stderr}`)
-      })
-      return ejecutado
-    }
-    res.sendStatus(200)
-  })
+
