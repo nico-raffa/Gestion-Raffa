@@ -23,7 +23,7 @@ app.engine('hbs', engine({
     defaultLayout: 'index.hbs',
     layoutsDir: __dirname + '/views/layouts',
     handlebars: allowInsecurePrototypeAccess(Handlebars),
-    helpers: {
+    helpers:{
         dateFormat: handlebarsDateformat
     }
 }))
@@ -40,29 +40,16 @@ app.get('*', (req, res) => {
 })
 
 app.post('/webhook', (req, res) => {
-    let body = '';
-
-    req.on('data', (chunk) => {
-        body += chunk.toString();
-    });
-
-    req.on('end', () => {
-        const payload = JSON.parse(body);
-
-        // Verificar que el evento sea un push
-        if (payload && payload.ref === 'refs/heads/main') {
-            // Ejecutar el script deploy.sh
-            exec('bash /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
-                if (error) {
-                    console.error(`Error al ejecutar el script: ${error}`);
-                    return;
-                }
-                console.log(`Script ejecutado correctamente: ${stdout}`);
-            });
+    if (req.body.ref === 'refs/heads/master') {
+      exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
+        console.log('hola')
+        if (error) {
+          console.error(`exec error: ${error}`)
+          return res.sendStatus(500)
         }
-    });
-
-    res.statusCode = 200;
-    res.end('Webhook received successfully.');
-});
-
+        console.log(`stdout: ${stdout}`)
+        console.error(`stderr: ${stderr}`)
+      })
+    }
+    res.sendStatus(200)
+  })
