@@ -40,7 +40,7 @@ app.get('*', (req, res) => {
 })
 
 app.post('/webhook', (req, res) => {
-    console.log("hola")
+    return 'hola'
     if (req.body.ref === 'refs/heads/master') {
       const ejecutado = exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
         if (error) {
