@@ -39,7 +39,7 @@ app.get('*', (req, res) => {
     })
 })
 
-app.post('https://3a26-190-194-90-254.ngrok-free.app/webhook', (req, res) => {
+app.post('/webhook', (req, res) => {
     if (req.body.ref === 'refs/heads/master') {
       exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
         if (error) {
