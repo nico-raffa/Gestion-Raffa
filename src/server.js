@@ -39,6 +39,10 @@ app.get('*', (req, res) => {
     })
 })
 app.post('/webhook', (req, res) => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> e3a7b95c46e3c23459ad794577646e8018e4eae8
     if (req.body.ref === 'refs/heads/main') {
       exec('sh /home/server1/scripts/deploy.sh', (error, stdout, stderr) => {
         if (error) {
