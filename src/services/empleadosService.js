@@ -15,6 +15,8 @@ export class EmpleadosService {
       if (exist) { throw new Error('USER_EXIST') }
       if(empleado.nacimiento === ""){
         empleado.nacimiento = null
+      }else{
+        empleado.nacimiento = transformarFecha(empleado.nacimiento)
       }
       if(empleado.fecha_fin === ""){
         empleado.fecha_fin = null
@@ -82,13 +84,13 @@ export class EmpleadosService {
       if (!exist) {
         throw new Error('USER_DOES_NOT_EXIST')
       }
-      if (datoNuevo.nacimiento && datoNuevo.nacimiento !== '') {
+      if (datoNuevo.nacimiento && datoNuevo.nacimiento !== null) {
         datoNuevo.nacimiento = transformarFecha(datoNuevo.nacimiento);
       }
-      if (datoNuevo.fecha_inicio && datoNuevo.fecha_inicio !== '') {
+      if (datoNuevo.fecha_inicio && datoNuevo.fecha_inicio !== null) {
         datoNuevo.fecha_inicio = transformarFecha(datoNuevo.fecha_inicio);
       }
-      if (datoNuevo.fecha_fin && datoNuevo.fecha_fin !== '') {
+      if (datoNuevo.fecha_fin && datoNuevo.fecha_fin !== null) {
         datoNuevo.fecha_fin = transformarFecha(datoNuevo.fecha_fin);
       }
       await Empleado.update(datoNuevo, {

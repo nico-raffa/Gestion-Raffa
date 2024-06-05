@@ -7,23 +7,23 @@ export class HorasEmpleado extends Model {}
 HorasEmpleado.init(
   {
     id_empleado: {
-      type: DataTypes.INTEGER(),
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     fecha: {
-      type: DataTypes.DATEONLY(),
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     horas_trabajadas: {
-      type: DataTypes.REAL(),
+      type: DataTypes.REAL,
       allowNull: false,
     },
-    total: {
-      type: DataTypes.REAL(),
+    total_mensual: {
+      type: DataTypes.REAL,
       allowNull: false,
     },
     observaciones: {
-      type: DataTypes.TEXT(),
+      type: DataTypes.TEXT,
     },
   },
   {

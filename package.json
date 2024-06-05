@@ -19,6 +19,7 @@
     "express-handlebars": "^7.0.7",
     "handlebars": "^4.7.7",
     "handlebars-dateformat": "^1.1.3",
+    "moment": "^2.30.1",
     "mongoose": "^7.3.4",
     "mysql2": "^3.5.2",
     "node-emoji": "^2.1.0",

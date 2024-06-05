@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Horas de Empleado</title>
+    <link rel="stylesheet" href="/styles/horas.css">
+</head>
+
+<body>
+    <div class="container">
+        <a href="/empleados" class="btn-volver">Volver</a>
+
+        <h1>Registro de Horas de: {{empleadoExiste.nombre}}</h1>
+        <form id="employee-hours-form" action="/empleados/horas/cargar" method="post">
+            <div class="form-group">
+                <label for="id_empleado">DNI</label>
+                <input type="number" id="id_empleado" name="id_empleado" value="{{empleadoExiste.id_empleado}}" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" value=Fecha() required>
+            </div>
+            <div class="form-group">
+                <label for="horas_trabajadas">Horas Trabajadas</label>
+                <input type="number" id="horas_trabajadas" name="horas_trabajadas" required>
+            </div>
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" name="observaciones" rows="4"></textarea>
+            </div>
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+    <script src="/scripts/fechaDeHoy.js"></script>
+</body>
+
+</html>

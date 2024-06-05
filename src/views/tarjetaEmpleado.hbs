@@ -39,10 +39,14 @@
                         value={{#if resultado.fecha_fin}}"{{dateFormat resultado.fecha_fin " DD/MM/YYYY"}}"{{/if}}></p>
                 <button type="button" onclick="toggleCampo('fecha_fin')">B</button>
             </div>
+            <div style="display: flex; align-items: center;">
+                <p><strong>Fecha inicio:</strong> <input type="text" id="fecha_inicio" name="fecha_inicio" readonly
+                        value={{#if resultado.fecha_inicio}}"{{dateFormat resultado.fecha_inicio " DD/MM/YYYY"}}"{{/if}}></p>
+                <button type="button" onclick="toggleCampo('fecha_fin')">B</button>
+            </div>
             
 
 
-            <input type="hidden" name="_method" value="PUT">
             <button type="submit" class="btn-volver">Actualizar</button>
             <a href="/empleados/verEmpleados" class="btn-volver">Volver</a>
         </form>

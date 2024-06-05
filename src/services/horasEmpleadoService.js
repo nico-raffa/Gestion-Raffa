@@ -1,42 +1,47 @@
 import { HorasEmpleado } from "../models/horasEmpleadoModel.js";
-import { empleado } from "../controllers/empleadosController.js";
 import { transformarFecha } from "../utils/fecha.js";
+import { Sequelize } from "sequelize";
+import moment from "moment";
 export class HorasEmpleadoService {
-    constructor() {
-        this.existe = async function (datos) {
-            let existente = await empleado.buscarEmpleadoPorId({ id_empleado: datos.id_empleado })
-            return existente
-        }
-    }
+
     async ingresarHoras(datos) {
         try {
-            if (Object.keys(datos).length === 0) {
-                return 'Ingrese los datos'
-            } else {
-                if (Object.keys(datos).length >= 4) {
-                    if (await this.existe(datos)) {
-                        datos.fecha = transformarFecha(datos.fecha)
-                        let registroExiste = await HorasEmpleado.findOne({
-                            where: {
-                                id_empleado: datos.id_empleado,
-                                fecha: datos.fecha,
-                            }
-                        })
-                        if (registroExiste) {
-                            return `En la fecha ${datos.fecha}, ya existe un registro con el id ${datos.id_empleado}`
-                        } else {
-                            let horasCargadas = await HorasEmpleado.create(datos)
-                            return horasCargadas.dataValues
-                        }
-                    } else {
-                        return 'El empleado no existe'
-                    }
-                } else {
-                    return 'Datos faltantes'
-                }
+            const { id_empleado, fecha, horas_trabajadas } = datos
+            const horasDelEmpleado = await this.buscarHorasPorEmpleado(datos)
+
+            if (horasDelEmpleado) {
+                throw new Error(`En la fecha ${moment(fecha, 'YYYY/MM/DD').format('DD-MM-YYYY')}, ya existe un registro con el id ${id_empleado}`)
             }
+            const parsedDate = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM-DD');
+            const yearMonth = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM');
+            const startOfMonth = `${yearMonth}-01`;
+            const endOfMonth = moment(parsedDate).endOf('month').format('YYYY-MM-DD');
+
+            // Buscar si ya existe un registro para el mismo empleado y mes
+            const registroExistente = await HorasEmpleado.findOne({
+                where: {
+                    id_empleado,
+                    fecha: {
+                        [Sequelize.Op.between]: [startOfMonth, endOfMonth]
+                    }
+                },
+                order: [['fecha', 'DESC']]
+            });
+            if (registroExistente) {
+                // No es el primer registro del mes, sumar las horas
+                console.log(horas_trabajadas)
+                datos.total_mensual = registroExistente.total_mensual + Number(horas_trabajadas)
+            } else {
+                // Es el primer registro del mes
+                datos.total_mensual = horas_trabajadas;
+            }
+            // datos.total_mensual = horasDelEmpleado.total_mensual + horas_trabajadas
+            let horasCargadas = await HorasEmpleado.create(datos)
+            return horasCargadas.dataValues
+
+
         } catch (error) {
-            console.log(error)
+            return { success: false, error: error.message }
         }
     }
     async modificarHora(datos) {
@@ -45,7 +50,7 @@ export class HorasEmpleadoService {
                 return `Ingrese los datos`
             } else {
                 if (Object.keys(datos).length >= 4) {
-                    if (await this.existe(datos)) {
+                    if (await this.empleadoExiste(datos)) {
                         datos.fecha = transformarFecha(datos.fecha)
                         let registroExiste = await HorasEmpleado.findOne({
                             where: {
@@ -66,15 +71,37 @@ export class HorasEmpleadoService {
                     return 'Datos faltantes'
                 }
             }
-            
+
         } catch (error) {
             console.log(error)
         }
     }
-    async buscarRegistro(datos) {
+    async buscarHorasPorEmpleado(datos) {
         try {
-            if (this.existe(datos)) {
-            }
+            const { id_empleado, fecha } = datos
+            datos.fecha = transformarFecha(datos.fecha)
+            const horaExistente = await HorasEmpleado.findOne({
+                where: {
+                    id_empleado: id_empleado,
+                    fecha: fecha
+                }
+            })
+            const parsedDate = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM-DD');
+            const yearMonth = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM');
+            const startOfMonth = `${yearMonth}-01`;
+            const endOfMonth = moment(parsedDate).endOf('month').format('YYYY-MM-DD');
+
+            // Buscar si ya existe un registro para el mismo empleado y mes
+            const registroExistente = await HorasEmpleado.findOne({
+                where: {
+                    id_empleado,
+                    fecha: {
+                        [Sequelize.Op.between]: [startOfMonth, endOfMonth]
+                    }
+                },
+                order: [['fecha', 'DESC']]
+            });
+            return horaExistente
         } catch (error) {
             console.log(error)
         }

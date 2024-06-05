@@ -61,7 +61,7 @@ export class EmpleadosController {
             if (!idEmpleado || Object.values(dato).every(value => value === '')) { //<-- MODIFICAR ESTO PARA QUE LAS FECHAS NO SE ENVÍEN COMO 0000-00-00
                 return res.status(400).send('Ingrese los datos que quiere modificar.')
             }
-            
+
             await empleado.modificarEmpleado(idEmpleado, dato)
 
             res.redirect(`/empleados/verEmpleados?filtro=id_empleado&busqueda=${idEmpleado}`)
