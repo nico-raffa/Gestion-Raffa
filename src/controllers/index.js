@@ -5,6 +5,7 @@ const cargarHorasController = new HorasEmpleadoController()
 const empleadosController = new EmpleadosController()
 export const routerEmpleados = new Router()
 export const routerCargarHoras = new Router()
+
 //          ROUTER PARA EMPLEADO
 routerEmpleados.get("/", (req, res) => res.render('main', {}))
 routerEmpleados.get("/verEmpleados", empleadosController.verEmpleado)

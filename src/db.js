@@ -5,7 +5,7 @@ export const sequelize = new Sequelize('sistemaraffa', 'root', '', {
   define: {
     foreignKeys: true
   },
-  port: 3306
+  port: 3308
 });
 sequelize.sync()
   .then(() => {

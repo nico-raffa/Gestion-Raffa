@@ -53,7 +53,9 @@ export class HorasEmpleadoController {
                 fecha: fecha
             }
             const horasPorEmpleado = await horasEmpleado.buscarHorasPorEmpleado(datos)
-            res.render('horasCargadas', {})
+            res.render('horasCargadas', {
+                horasPorEmpleado
+            })
         } catch (error) {
             res.status(400).render('error', { error })
         }
