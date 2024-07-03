@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro Financiero</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/choices.js/9.0.1/styles/choices.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/gestion" class="btn-volver ">Volver</a>
+        <h2>Registro Financiero</h2>
+        <form action="/gestion/cargar" method="POST">
+            <!-- Categoría -->
+
+            <div class="form-group"></div>
+            <label for="categoria">Categoría</label>
+            <select id="categoria" class="form-control" name="categoria" required>
+                <option value="">Seleccione la categoría</option>
+                <option value="Ventas">Ventas</option>
+                <option value="Insumos">Insumos</option>
+                <option value="Materiales">Materiales</option>
+                <option value="Salarios">Salarios</option>
+                <option value="Auto">Auto</option>
+                <option value="Varios">Varios</option>
+            </select>
+    <!-- Descripción -->
+    <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea class="form-control" id="descripcion" rows="3" maxlength="250" placeholder="Ingrese una descripción"
+            name="descripcion"></textarea>
+    </div>
+    <!-- Cantidad -->
+    <div class="form-group">
+        <label for="cantidad">Cantidad en pesos argentinos $</label>
+        <input type="number" class="form-control" id="cantidad" placeholder="Ingrese la cantidad $" step="0.01" min="0"
+            max="9999999999.99" name="cantidad" required>
+    </div>
+    <!-- Fecha -->
+    <div class="form-group">
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" id="fecha" name="fecha">
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+    </div>
+
+    <script>
+        // Configurar el selector de fecha para que por defecto muestre el día actual
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const fechaInput = document.getElementById('fecha');
+            const today = new Date().toISOString().split('T')[0];
+            fechaInput.value = today;
+        });
+    </script>
+    </div>
+</body>
+
+</html>

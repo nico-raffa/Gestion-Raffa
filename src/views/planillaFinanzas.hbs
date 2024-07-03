@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilla de Registros Financieros</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/gestion" class="btn-volver ">Volver</a>
+
+        <h2>Planilla de Registros de movimientos</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                    <th>Dinero</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each respuesta}}
+                <tr>
+                    <td><a href=mostraruno?filtro=id&busqueda={{this.id}}>VER</a></td>
+                    <td>{{this.categoria}}</td>
+                    <td>{{this.descripcion}}</td>
+                    <td>$ {{this.cantidad}}</td>
+                    <td>{{dateFormat this.fecha "DD/MM/YYYY"}}</td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

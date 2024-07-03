@@ -8,7 +8,8 @@ HorasEmpleado.init(
   {
     id_empleado: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     fecha: {
       type: DataTypes.DATEONLY,

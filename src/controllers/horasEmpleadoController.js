@@ -43,7 +43,7 @@ export class HorasEmpleadoController {
     mostrarHorasPorEmpleado = async (req, res) => {
         try {
             const { id_empleado, fecha } = req.query
-            const empleadoExiste = await this.empleadoExiste(id_empleado)
+            const empleadoExiste = await this.empleadoExiste(req.query)
             if (!empleadoExiste) {
                 throw new Error(`El empleado con el ID ${id_empleado} no existe`)
             }
@@ -53,8 +53,10 @@ export class HorasEmpleadoController {
                 fecha: fecha
             }
             const horasPorEmpleado = await horasEmpleado.buscarHorasPorEmpleado(datos)
+            console.log(horasPorEmpleado)
             res.render('horasCargadas', {
-                horasPorEmpleado
+                horasPorEmpleado,
+                empleadoExiste
             })
         } catch (error) {
             res.status(400).render('error', { error })

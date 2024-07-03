@@ -1,5 +1,5 @@
 import express from 'express'
-import { routerCargarHoras, routerEmpleados } from './controllers/index.js'
+import { routerCargarHoras, routerEmpleados, routerFinanzas } from './controllers/index.js'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import { engine } from 'express-handlebars'
@@ -32,6 +32,7 @@ app.set('view engine', 'hbs')
 
 app.use('/empleados', routerEmpleados)
 app.use('/empleados/horas', routerCargarHoras)
+app.use('/gestion', routerFinanzas)
 app.get('*', (req, res) => {
     res.send({
         error: -2,

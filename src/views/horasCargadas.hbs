@@ -11,10 +11,10 @@
 <body>
     <div class="container">
     <a href="/empleados" class="btn-volver">Volver</a>
-        <h1>Horas Trabajadas de {{nombre}} {{apellido}}</h1>
+        <h1>Horas Trabajadas de {{empleadoExiste.nombre}} {{empleadoExiste.apellido}}</h1>
         <form action="/ver-horas" method="GET" class="mes-form">
             <label for="mes">Seleccionar mes:</label>
-            <input type="month" id="mes" name="mes" value="{{mes}}">
+            <input type="month" id="mes" name="mes" >
             <button type="submit">Ver</button>
         </form>
         <h2>Mes visualizado: {{mes_visualizado}}</h2>

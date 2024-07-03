@@ -1,3 +1,4 @@
+import moment from "moment"
 export const transformarFecha = (fecha) => {
     const partesFecha = fecha.split('/')
     const dia = parseInt(partesFecha[0], 10)
@@ -16,4 +17,14 @@ export const fechaDiaMesAnio = (fecha) => {
     // Crear una cadena con el formato DD/MM/AAAA
     const formattedDate = `${day}/${month}/${year}`
     return formattedDate
+}
+export const obtenerMes = (fecha) => {
+    const parsedDate = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM-DD')
+    const yearMonth = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM')
+    const startOfMonth = `${yearMonth}-01`
+    const endOfMonth = moment(parsedDate).endOf('month').format('YYYY-MM-DD')
+    const meses = {
+        startOfMonth,endOfMonth
+    }
+    return meses
 }

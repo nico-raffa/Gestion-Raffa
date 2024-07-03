@@ -17,7 +17,7 @@ export class HorasEmpleadoService {
             const yearMonth = moment(fecha, 'YYYY/MM/DD').format('YYYY-MM')
             const startOfMonth = `${yearMonth}-01`
             const endOfMonth = moment(parsedDate).endOf('month').format('YYYY-MM-DD')
-            const registroExistente = await HorasEmpleado.findAll({
+            const registroExistente = await HorasEmpleado.findOne({
                 where: {
                     id_empleado,
                     fecha: {
@@ -26,11 +26,7 @@ export class HorasEmpleadoService {
                 },
                 order: [['fecha', 'DESC']]
             })
-            for (let i = 0; i < registroExistente.length; i++) {
-                const element = registroExistente[i];
-                console.log(element.horas_trabajadas)
-                
-            }
+
             if (registroExistente) {
                 // No es el primer registro del mes, sumar las horas
                 datos.total_mensual = registroExistente.total_mensual + Number(horas_trabajadas)
@@ -98,6 +94,7 @@ export class HorasEmpleadoService {
                 },
                 order: [['fecha', 'DESC']]
             })
+            
             return registroExistente
         } catch (error) {
             console.log(error)
